@@ -38,60 +38,62 @@
 //Funky little helper class for overloading [][]
 class ofxGridSystemArray{
 public:
-  ofxGridSystemArray(){};
-  ~ofxGridSystemArray(){};
+    ofxGridSystemArray(){};
+    ~ofxGridSystemArray(){};
   
 public:
-  float topY;
-  float leading;
-  float x;
-  ofVec3f operator[](int iIndex)
-  {
-    return ofVec3f(x, topY-(float)iIndex*leading, 0);
-  };
+    float topY;
+    float leading;
+    float x;
+    ofVec3f operator[](int iIndex){
+        return ofVec3f(x, topY-(float)iIndex*leading, 0);
+    };
 };
 
 class ofxGridSystem : public ofxObject{
   
 public:
-  ofxGridSystem(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail, int iGutterMult=1);
-  ofxGridSystem();
-  ~ofxGridSystem();
-  
-  void            buildGrid(float iPageWidth, float iPageHeight, int iNumColumns, float iBaselineLeading, float iLeft, float iRight, float iHead, float iTail, int iGutterMult=1);
-  float           colX(int iNumber);
-  float           col(int iNumber=1);
-  void            setLineColor(ofVec4f iColor);
-  void            setLineWidth(float iWidth);
-  void            showLines(bool iShowHide);
-  void            showBaselines(bool iShowHide);
-  ofxGridSystemArray  operator[](int iIndex);
-  bool            isGridVisible();
-  bool            isBaselineGridVisible();
+    ofxGridSystem(float iPageWidth, float iPageHeight,
+                  int iNumColumns, float iBaselineLeading,
+                  float iLeft, float iRight, float iHead, float iTail, int iGutterMult=1);
+    ofxGridSystem();
+    ~ofxGridSystem();
+
+    void            buildGrid(float iPageWidth, float iPageHeight,
+                              int iNumColumns, float iBaselineLeading,
+                              float iLeft, float iRight, float iHead, float iTail, int iGutterMult=1);
+    float           colX(int iNumber);
+    float           col(int iNumber=1);
+    void            setLineColor(ofVec4f iColor);
+    void            setLineWidth(float iWidth);
+    void            showLines(bool iShowHide);
+    void            showBaselines(bool iShowHide);
+    ofxGridSystemArray  operator[](int iIndex);
+    bool            isGridVisible();
+    bool            isBaselineGridVisible();
   
 private:
-  void            buildLines();
-  int             numBaselines;
-  float           *baselines;
-  bool            isGridShown,
-  isBaselineGridShown;
+    void            buildLines();
+    int             numBaselines;
+    float           *baselines;
+    bool            isGridShown,
+                    isBaselineGridShown;
   
 public:
-  float           width,
-  height;
-  float           colW;
-  int             numCol;
-  float           left,
-                  right,
-                  head,
-                  tail;
-  float           topY,
-                  bottomY;
-  float           leftX,
-                  rightX;
-  float           leading;
-  float           gutter;
-  vector<ofxLineStripObject *>    lines;
-  vector<ofxLineStripObject *>    baselineLines;
-  
+    float           width,
+                    height;
+    float           colW;
+    int             numCol;
+    float           left,
+                    right,
+                    head,
+                    tail;
+    float           topY,
+                    bottomY;
+    float           leftX,
+                    rightX;
+    float           leading;
+    float           gutter;
+    std::vector<ofxLineStripObject *>   lines;
+    std::vector<ofxLineStripObject *>   baselineLines;
 };

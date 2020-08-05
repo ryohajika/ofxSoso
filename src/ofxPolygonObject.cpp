@@ -19,8 +19,8 @@ ofxPolygonObject::ofxPolygonObject(int iNumVertices)
 ofxPolygonObject::~ofxPolygonObject()
 {
 	delete[] vertices;
-  delete[] texCoords;
-  delete[] vertexColors;
+    delete[] texCoords;
+    delete[] vertexColors;
 }
 
 void ofxPolygonObject::render()
@@ -69,11 +69,11 @@ void ofxPolygonObject::setVertexTexCoords(int iVertexNum, float iU, float iV)
     
 		//adding auto clamping
 		if(texture){
-			texCoords[2*iVertexNum] = min(iU, texture->getWidth());
-			texCoords[2*iVertexNum] = max(texCoords[2*iVertexNum], 0.0f);
+			texCoords[2*iVertexNum] = std::min(iU, texture->getWidth());
+			texCoords[2*iVertexNum] = std::max(texCoords[2*iVertexNum], 0.0f);
       
-			texCoords[2*iVertexNum + 1] = min(iV, texture->getHeight());
-			texCoords[2*iVertexNum + 1] = max(texCoords[2*iVertexNum + 1], 0.0f);
+			texCoords[2*iVertexNum + 1] = std::min(iV, texture->getHeight());
+			texCoords[2*iVertexNum + 1] = std::max(texCoords[2*iVertexNum + 1], 0.0f);
 		}
 		
 	}
@@ -123,7 +123,7 @@ void ofxPolygonObject::setTexture(ofImage *iTex)
 }
 
 void ofxPolygonObject::setTextureByReference(ofTexture &iTex) {
-  texture = &iTex;
+    texture = &iTex;
 }
 
 void ofxPolygonObject::enableVertexColoring(bool iEnable)

@@ -9,7 +9,6 @@
 #include <iostream>
 #include "ofxSosoTrueTypeFont.h"
 
-
 #include "ft2build.h"
 #include "freetype2/freetype/freetype.h"
 #include "freetype2/freetype/ftglyph.h"
@@ -19,41 +18,37 @@
 #include <algorithm>
 
 #include "ofUtils.h"
-#include "ofGraphics.h"
+#include "ofPoint.h"
 #include "ofTexture.h"  //for mipmap building
 
 //helper class for mapping higher Unicode characters down into the 0-255 range
-ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, string iNamedEntity, char iUTFByte0, char iUTFByte1, char iUTFByte2, char iUTFByte3, char iUTFByte4, char iUTFByte5)
-
+ofxSosoMappedChar::ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, std::string iNamedEntity, char iUTFByte0, char iUTFByte1, char iUTFByte2, char iUTFByte3, char iUTFByte4, char iUTFByte5)
 {
 	//index within 0-255 range to which we're mapping
 	mapToIndex = iMapToIndex;
 	
-  //standard unicode index
+    //standard unicode index
 	unicodeIndex = iUnicodeIndex;
 
-	
-  //HTML named entity
+    //HTML named entity
 	namedEntity = iNamedEntity;
 	
-  //UTF-8 byte sequence (not the unicode val:0x00A9, but the utf-8 bytes: 0xC2, 0xA9)
-  utf8Sequence = "";
+    //UTF-8 byte sequence (not the unicode val:0x00A9, but the utf-8 bytes: 0xC2, 0xA9)
+    utf8Sequence = "";
   
-  if (iUTFByte0 != 0) utf8Sequence += iUTFByte0;
-  if (iUTFByte1 != 0) utf8Sequence += iUTFByte1;
-  if (iUTFByte2 != 0) utf8Sequence += iUTFByte2;
-  if (iUTFByte3 != 0) utf8Sequence += iUTFByte3;
-  if (iUTFByte4 != 0) utf8Sequence += iUTFByte4;
-  if (iUTFByte5 != 0) utf8Sequence += iUTFByte5;
-  
+    if (iUTFByte0 != 0) utf8Sequence += iUTFByte0;
+    if (iUTFByte1 != 0) utf8Sequence += iUTFByte1;
+    if (iUTFByte2 != 0) utf8Sequence += iUTFByte2;
+    if (iUTFByte3 != 0) utf8Sequence += iUTFByte3;
+    if (iUTFByte4 != 0) utf8Sequence += iUTFByte4;
+    if (iUTFByte5 != 0) utf8Sequence += iUTFByte5;
 }
 
 
 ofxSosoMappedChar::~ofxSosoMappedChar()
 {
-  //destructor is currently empty
+    //destructor is currently empty
 }
-
 
 
 //BAD! static global vars in ofTrueTypeFont.cpp
@@ -61,7 +56,7 @@ static bool printVectorInfo = false;
 static int ttfGlobalDpi = 72;   //this is standard dpi to get you pixel-accurate pointsizes. OF uses 96, which yields incorrect point-sizing
 
 bool ofxSosoTrueTypeFont::areMappedCharsBuilt = false;
-vector<ofxSosoMappedChar *> ofxSosoTrueTypeFont::mappedChars;
+std::vector<ofxSosoMappedChar *> ofxSosoTrueTypeFont::mappedChars;
 
 
 //BAD! static global functions in ofTrueTypeFont.cpp

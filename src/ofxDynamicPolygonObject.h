@@ -33,20 +33,20 @@ public:
 	ofxDynamicPolygonObject(int iNumVertices);
 	~ofxDynamicPolygonObject();
   
-	void								idle(float iTime);
-	void								setVertexPos(int iVertexNum, ofVec3f iPos);
-	void								setVertexTexCoords(int iVertexNum, float iU, float iV);
-	void								setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);
-	void								gotoVertexPos(int iVertexNum, ofVec3f iPos, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
-	void								gotoVertexTexCoords(int iVertexNum, float iU, float iV, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
-	void								gotoVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
+	void		idle(float iTime);
+	void		setVertexPos(int iVertexNum, ofVec3f iPos);
+	void		setVertexTexCoords(int iVertexNum, float iU, float iV);
+	void		setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);
+	void		gotoVertexPos(int iVertexNum, ofVec3f iPos, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
+	void		gotoVertexTexCoords(int iVertexNum, float iU, float iV, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
+	void		gotoVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255, float iDur=-1.0, float iDelay=0, int iInterp=OF_LINEAR);
   
 public:
 	struct ofxDynamicPolygonVert{	//PEND maybe make one tracker object and just use trans for pos, scale for tex, and color for color
-		ofxObject			*posTracker,
-    *texTracker,
-    *colorTracker;
+		ofxObject		*posTracker,
+                        *texTracker,
+                        *colorTracker;
 	};
-	vector<ofxDynamicPolygonVert *>		dynamicVerts;
+	std::vector<ofxDynamicPolygonVert *>    dynamicVerts;
   
 };

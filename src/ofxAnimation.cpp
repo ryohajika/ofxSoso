@@ -28,8 +28,6 @@ void ofxTween::stop()
 	object->removeMessage(message);	
 }
 
-    
-
 
 //class ofxAnimation 
 ofxAnimation::ofxAnimation()
@@ -39,11 +37,11 @@ ofxAnimation::ofxAnimation()
 
 ofxAnimation::~ofxAnimation()
 {
-	stop();
-  for (auto tween : tweens){
-    delete tween;
-  }
-  tweens.clear();
+    stop();
+    for (auto tween : tweens){
+        delete tween;
+    }
+    tweens.clear();
 }
 
 void ofxAnimation::start()
@@ -169,7 +167,7 @@ ofxTween* ofxAnimation::hideObject(ofxObject *iObject, float iTime, int iPlayMod
 }
 
 //This method lets you specify bezier animation paths, through a vector of ofVec4f, which are treated as control points for the path.
-ofxTween* ofxAnimation::tweenBezier(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ofVec4f> iPath, int iPlayMode)
+ofxTween* ofxAnimation::tweenBezier(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, std::vector<ofVec4f> iPath, int iPlayMode)
 {	
 	//make message
 	ofxMessage *message = new ofxMessage(iID, iInterp, OF_BEZIER_PATH, iPath, iEndTime-iStartTime, iStartTime, iPlayMode);	
@@ -182,7 +180,7 @@ ofxTween* ofxAnimation::tweenBezier(ofxObject *iObject, int iID, float iStartTim
 }
 
 //This method lets you specify spline animation paths, through a vector of ofVec4f, which are treated as control points for the path.
-ofxTween* ofxAnimation::tweenSpline(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ofVec4f> iPath, int iPlayMode)
+ofxTween* ofxAnimation::tweenSpline(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, std::vector<ofVec4f> iPath, int iPlayMode)
 {
 	//make message
 	ofxMessage *message = new ofxMessage(iID, iInterp, OF_SPLINE_PATH, iPath, iEndTime-iStartTime, iStartTime, iPlayMode);	

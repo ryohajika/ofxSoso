@@ -31,16 +31,16 @@ public:
 	ofxCircleObject(int iResolution, float iOuterRadius, float iInnerRadius=0);
 	~ofxCircleObject();
 
-	void						render();
-  void setResolution(int iResolution) {
-    resolution = iResolution;
-  }
+	void    render();
+    void    setResolution(int iResolution) {
+        resolution = iResolution;
+    }
 
 public:	
-	int							resolution,
-                  numCirclePoints;
-	float						outerRadius,
-                  innerRadius;
-	float						*circlePoints;
+	int     resolution,
+            numCirclePoints;
+	float   outerRadius,
+            innerRadius;
+	float   *circlePoints;
 
 };

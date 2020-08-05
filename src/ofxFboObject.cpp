@@ -9,7 +9,7 @@ ofxFboObject::ofxFboObject(int iWidth, int iHeight, int iInternalFormat, int iNu
 
 // Destructor.
 ofxFboObject::~ofxFboObject(){
-  delete fbo;
+    delete fbo;
 }
 
 void ofxFboObject::render()

@@ -38,38 +38,41 @@
 class ofxSosoMappedChar
 {
 public:
-	ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex,  string iNamedEntity, char iUTFByte0, char iUTFByte1=0, char iUTFByte2=0, char iUTFByte3=0, char iUTFByte4=0, char iUTFByte5=0);
+	ofxSosoMappedChar(unsigned char iMapToIndex, int iUnicodeIndex, std::string iNamedEntity,
+                      char iUTFByte0, char iUTFByte1=0, char iUTFByte2=0, char iUTFByte3=0, char iUTFByte4=0, char iUTFByte5=0);
 	~ofxSosoMappedChar();
   
 public:
-	unsigned char		mapToIndex;
-	FT_ULong        unicodeIndex;
-	string          utf8Sequence;
-	string          namedEntity;
+	unsigned char       mapToIndex;
+	FT_ULong            unicodeIndex;
+	std::string         utf8Sequence;
+	std::string         namedEntity;
 };
 
 
 class ofxSosoTrueTypeFont : public ofTrueTypeFont
 {
 public:
-  ofxSosoTrueTypeFont();
+    ofxSosoTrueTypeFont();
 	~ofxSosoTrueTypeFont();
   
   
 	//overridden methods from ofTrueTypeFont
-  bool                    loadFont(string filename, int fontsize, bool _bAntiAliased=true, bool _bFullCharacterSet=true, bool makeContours=false, bool makeMipMaps=true, float simplifyAmt=0.3, int dpi=72);
+    bool                    loadFont(std::string filename, int fontsize,
+                                     bool _bAntiAliased=true, bool _bFullCharacterSet=true, bool makeContours=false,
+                                     bool makeMipMaps=true, float simplifyAmt=0.3, int dpi=72);
   
-  void                    drawString(string c, float x, float y);
-  void                    drawChar(int c, float x, float y);
-	void                    drawStringAsShapes(string s, float x, float y);
+    void                    drawString(std::string c, float x, float y);
+    void                    drawChar(int c, float x, float y);
+	void                    drawStringAsShapes(std::string s, float x, float y);
   
 	//overridden for special Unicode character replacements
-	float                   stringWidth(string s);
-  float                   stringHeight(string s);
-	ofRectangle             getStringBoundingBox(string c, float x, float y);
+	float                   stringWidth(std::string s);
+    float                   stringHeight(std::string s);
+	ofRectangle             getStringBoundingBox(std::string c, float x, float y);
   
 	//new methods
-  vector <ofVec2f>        getCharPositions(string s, float x=0, float y=0);
+    std::vector <ofVec2f>   getCharPositions(std::string s, float x=0, float y=0);
 	FT_UInt                 getFTCharIndex(FT_Face iFace, unsigned char iIndex);
 
 	
@@ -78,28 +81,26 @@ public:
 	void                    enableKerning(bool iEnable);
 	void                    printNonzeroKerningPairs();
 
-	static void             removeCharacters(string &iString, string iCharsToRemove);
+	static void             removeCharacters(std::string &iString, std::string iCharsToRemove);
   
-  static int              getMappedChar(string iString, int &iIndex);
-  char*                   getMappedCharSequence(string iString, int &iIndex);
+    static int              getMappedChar(std::string iString, int &iIndex);
+    char*                   getMappedCharSequence(std::string iString, int &iIndex);
   
-  static string           convertStringTo255(string iString);
+    static std::string      convertStringTo255(std::string iString);
   
 private:
-  void                    buildMappedChars();
+    void                    buildMappedChars();
   
-	static vector<ofxSosoMappedChar *>		mappedChars;
+	static std::vector<ofxSosoMappedChar *>		mappedChars;
 
 	static bool             areMappedCharsBuilt;
 	
 protected:
-  //these are private in ofTrueTypeFont, so we override them to get access
-  void                    unloadTextures();
+    //these are private in ofTrueTypeFont, so we override them to get access
+    void                    unloadTextures();
 	void                    reloadTextures();
   
 protected:
 	bool                    isKerningEnabled;
 	int                     kerningPairs[FONT_NUM_CHARS][FONT_NUM_CHARS];
-  
-
 };

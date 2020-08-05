@@ -36,11 +36,11 @@ enum{
 	OF_SCALE,
 	OF_SCALE3,
 	OF_SETCOLOR,
-  OF_SETCOLOR4,
+    OF_SETCOLOR4,
 	OF_SETALPHA,
 	OF_SHOW,
 	OF_HIDE,
-  OF_FUNCTION
+    OF_FUNCTION
 };
 
 enum{
@@ -66,7 +66,7 @@ class ofxMessage
 {
 public:
 	ofxMessage(int iID, void *iVals, int iInterpolation, float iDuration, float iDelay=0, int iPlayMode=OF_ONE_TIME_PLAY);
-	ofxMessage(int iID, int iInterpolation, int iPath, vector<ofVec4f> iPathPoints, float iDuration, float iDelay=0, int iPlayMode=OF_ONE_TIME_PLAY);
+    ofxMessage(int iID, int iInterpolation, int iPath, std::vector<ofVec4f> iPathPoints, float iDuration, float iDelay=0, int iPlayMode=OF_ONE_TIME_PLAY);
 	ofxMessage(int iID, float (*iFunction)(void *), void *iArgs, float iDelay, int iPlayMode=OF_ONE_TIME_PLAY); //LM
 
 	~ofxMessage();
@@ -84,7 +84,7 @@ public:
 	void					setEndVals(float iX, float iY, float iZ);
 	void					setEndVals(float iX, float iY, float iZ, float iW);
 
-  static float	interpolateTime(int iInterp, float iTime);
+    static float	        interpolateTime(int iInterp, float iTime);
 	static ofVec4f			bezier(float iM, std::vector<ofVec4f> iPath);
 	static ofVec4f			spline(float iM, std::vector<ofVec4f> iPath);
 
@@ -95,16 +95,16 @@ public:
 	int						playMode;
 	bool					loopDirection;
 	float					startTime,
-                startDelay,
-                duration;
+                            startDelay,
+                            duration;
 	void					*endVals,
-                *baseEndVals,
-                *startVals,
-                *baseStartVals;
-  float         (*functionPtr)(void *);
+                            *baseEndVals,
+                            *startVals,
+                            *baseStartVals;
+    float                   (*functionPtr)(void *);
 	bool					autoDelete;
 	bool					isEnabled;
 	bool					isRunning;
-	vector<ofVec4f>		pathPoints;
+	std::vector<ofVec4f>	pathPoints;
   
 };

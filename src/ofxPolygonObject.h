@@ -36,10 +36,11 @@ public:
 	void                  render();
   
 	void                  setTexture(ofImage *iTex);
-  void                  setTextureByReference(ofTexture &iTex);
+    void                  setTextureByReference(ofTexture &iTex);
 	virtual void          setVertexPos(int iVertexNum, ofVec3f iPos);
 	virtual void          setVertexTexCoords(int iVertexNum, float iU, float iV);
-	virtual void          setVertexColor(int iVertexNum, float iR, float iG, float iB, float iA=255);
+	virtual void          setVertexColor(int iVertexNum,
+                                         float iR, float iG, float iB, float iA=255);
   
 	ofVec3f               getVertexPos(int iVertexNum);
 	ofVec2f               getVertexTexCoords(int iVertexNum);
@@ -50,7 +51,7 @@ public:
 protected:
 	bool                  vertexColoringEnabled;
 	int                   numVertices;
-  float                 drawMode;
+    float                 drawMode;
 	float                 *vertices;
 	float                 *texCoords;
 	float                 *vertexColors;

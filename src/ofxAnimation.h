@@ -36,11 +36,11 @@ public:
 	ofxTween(ofxObject *iObject, ofxMessage *iMessage);
 	~ofxTween();
   
-	void							start();
-	void							stop();
+	void				    start();
+	void				    stop();
   
 public:
-	ofxObject					*object;
+	ofxObject			    *object;
 	ofxMessage				*message;
 };
 
@@ -51,40 +51,50 @@ public:
 	ofxAnimation();
 	~ofxAnimation();
   
-	void							start();
-	void							stop();
-	bool							isAnimating();
-	float							getDuration();
+	void			        start();
+	void				    stop();
+	bool				    isAnimating();
+	float				    getDuration();
   
   
-	ofxTween*					tween(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp,
-                            float iX0, float iX1,
-                            int iPlayMode=OF_ONE_TIME_PLAY);
-	ofxTween*					tween(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp,
-                            float iX0, float iY0, float iZ0,
-                            float iX1, float iY1, float iZ1,
-                            int iPlayMode=OF_ONE_TIME_PLAY);
-	ofxTween*					tween(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp,
-                            float iX0, float iY0, float iZ0, float iW0,
-                            float iX1, float iY1, float iZ1, float iW1,
-                            int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*			    tween(ofxObject *iObject, int iID,
+                                  float iStartTime, float iEndTime, int iInterp,
+                                  float iX0, float iX1,
+                                  int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*			    tween(ofxObject *iObject, int iID,
+                                  float iStartTime, float iEndTime, int iInterp,
+                                  float iX0, float iY0, float iZ0,
+                                  float iX1, float iY1, float iZ1,
+                                  int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*			    tween(ofxObject *iObject, int iID,
+                                  float iStartTime, float iEndTime, int iInterp,
+                                  float iX0, float iY0, float iZ0, float iW0,
+                                  float iX1, float iY1, float iZ1, float iW1,
+                                  int iPlayMode=OF_ONE_TIME_PLAY);
   
-	ofxTween*					tween(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp,
-                            ofVec3f iV0, ofVec3f iV1,
-                            int iPlayMode=OF_ONE_TIME_PLAY);
-	ofxTween*					tween(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp,
-                            ofVec4f iV0, ofVec4f iV1,
-                            int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*			    tween(ofxObject *iObject, int iID,
+                                  float iStartTime, float iEndTime, int iInterp,
+                                  ofVec3f iV0, ofVec3f iV1,
+                                  int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*			    tween(ofxObject *iObject, int iID,
+                                  float iStartTime, float iEndTime, int iInterp,
+                                  ofVec4f iV0, ofVec4f iV1,
+                                  int iPlayMode=OF_ONE_TIME_PLAY);
   
-	ofxTween*					showObject(ofxObject *iObject, float iTime, int iPlayMode=OF_ONE_TIME_PLAY);
-	ofxTween*					hideObject(ofxObject *iObject, float iTime, int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*			    showObject(ofxObject *iObject, float iTime, int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*			    hideObject(ofxObject *iObject, float iTime, int iPlayMode=OF_ONE_TIME_PLAY);
   
-	ofxTween*					tweenBezier(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ofVec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
-	ofxTween*					tweenSpline(ofxObject *iObject, int iID, float iStartTime, float iEndTime, int iInterp, vector<ofVec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*			    tweenBezier(ofxObject *iObject, int iID,
+                                        float iStartTime, float iEndTime, int iInterp,
+                                        std::vector<ofVec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
+	ofxTween*			    tweenSpline(ofxObject *iObject, int iID,
+                                        float iStartTime, float iEndTime, int iInterp,
+                                        std::vector<ofVec4f> iPath, int iPlayMode=OF_ONE_TIME_PLAY);
   
-	ofxTween*					tweenFunc(ofxObject *iObject,float (*iFunction)(void *), void *iArgs, float iTime, int iPlayMode=OF_ONE_TIME_PLAY); //LM
-  
+	ofxTween*			    tweenFunc(ofxObject *iObject, float (*iFunction)(void *),
+                                      void *iArgs, float iTime, int iPlayMode=OF_ONE_TIME_PLAY); //LM
+
 public:
-	vector<ofxTween *>				tweens;
+	std::vector<ofxTween *> tweens;
   
 };

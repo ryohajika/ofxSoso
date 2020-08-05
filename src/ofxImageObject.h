@@ -30,33 +30,30 @@
 class ofxImageObject : public ofxObject{
 	
 public:
-	ofxImageObject(string iFilename, bool iLoadNow=true, bool iSavePixels=false);
+	ofxImageObject(std::string iFilename, bool iLoadNow=true, bool iSavePixels=false);
 	~ofxImageObject();
   
-	void            loadImage(string iFilename, bool iSavePixels = true);
-	void						render();
-	void						setCentered(bool iEnable);
+	void            loadImage(std::string iFilename, bool iSavePixels = true);
+	void	        render();
+	void	        setCentered(bool iEnable);
 
-	void						clear();
-  void            clearPixels();
+	void	        clear();
+    void            clearPixels();
   
-  bool            hasPixels();
+    bool            hasPixels();
   
-  ofTexture*      getTexture();   //EG 021513
-  ofPixels*       getPixels(); // AO 111314
+    ofTexture*      getTexture();   //EG 021513
+    ofPixels*       getPixels(); // AO 111314
   
 public:
-  
 	bool            isCentered;
 	float           width = 0;
-  float           height = 0;
+    float           height = 0;
                 
-  bool            loaded = false;
-	string          filename;
+    bool            loaded = false;
+	std::string     filename;
   
 protected:
-  
-  ofTexture       *tex;
-  ofPixels        *pixels = NULL;
-  
+    ofTexture       *tex;
+    ofPixels        *pixels = NULL;
 };

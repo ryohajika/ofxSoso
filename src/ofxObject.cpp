@@ -5,9 +5,8 @@
 
 //class ofxObjectMaterial _____________________________________________________________________________
 
-ofxObjectMaterial::ofxObjectMaterial()
-{
-  ofColor color(255.0f, 255.0f, 255.0f, 255.0f);
+ofxObjectMaterial::ofxObjectMaterial(){
+    ofColor color(255.0f, 255.0f, 255.0f, 255.0f);
 	inheritAlphaFlag = true;
 }
 
@@ -16,9 +15,7 @@ ofxObjectMaterial::~ofxObjectMaterial(){}
 // Returns ofColor as a ofVec4f
 // Convenience method for ofxMessage calculations
 ofVec4f ofxObjectMaterial::getColorVec4f(){
-  
-  return ofVec4f(color.r, color.g, color.b, color.a);
-  
+    return ofVec4f(color.r, color.g, color.b, color.a);
 }
 
 
@@ -42,7 +39,7 @@ ofxObject::ofxObject(){
 	
 	material = new ofxObjectMaterial();
 	drawMaterial = new ofxObjectMaterial();
-  inheritColor = false;   // SK Added color inheritence defaults to false
+    inheritColor = false;   // SK Added color inheritence defaults to false
   
 	//rotationMatrix = NULL;
 	//rotationMatrixTmp = NULL;
@@ -68,37 +65,35 @@ ofxObject::ofxObject(){
 	timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
 	timeElapsed = 0;
   
-  //shader info
-  shader = new ofShader();
-  shaderEnabled = true; // Enabled by default
+    //shader info
+    shader = new ofShader();
+    shaderEnabled = true; // Enabled by default
 }
 
 // Destructor.
-ofxObject::~ofxObject()
-{
-  
-  // 1 --- Destroy new'ed items.
-  delete material;
-	delete drawMaterial;
-  for (auto message : messages){
-    delete message;
-  }
-  messages.clear();
-  
-  // 2 --- Destroy other items.
-  for (auto parent : parents){
-    parent->removeChild(this);
-  }
-  for (int i=0; i < children.size(); i++){
-    //cout<<"CHILD ["<<i<<"] - - - "<<endl;
-    
-    for (int j=0; j < children[i]->parents.size(); j++){
-      if(children[i]->parents[j] == this){
-        children[i]->parents.erase(children[i]->parents.begin() + j);
-        //cout<<"PARENT ["<<j<<"] - - - "<<endl;
-      }
+ofxObject::~ofxObject(){
+    // 1 --- Destroy new'ed items.
+    delete material;
+    delete drawMaterial;
+    for (auto message : messages){
+        delete message;
     }
-  }
+    messages.clear();
+
+    // 2 --- Destroy other items.
+    for (auto parent : parents){
+        parent->removeChild(this);
+    }
+    for (int i=0; i < children.size(); i++){
+    //cout<<"CHILD ["<<i<<"] - - - "<<endl;
+
+        for (int j=0; j < children[i]->parents.size(); j++){
+            if(children[i]->parents[j] == this){
+                children[i]->parents.erase(children[i]->parents.begin() + j);
+                //cout<<"PARENT ["<<j<<"] - - - "<<endl;
+            }
+        }
+    }
   
   //DEV_jc_1: this was here already, do we get rid of these unused vars?
   // Destroy malloc'ed items.
@@ -111,10 +106,9 @@ ofxObject::~ofxObject()
 	if (localMatrix) free(localMatrix);
 }
 
-int ofxObject::addChild(ofxObject *child)
-{
+int ofxObject::addChild(ofxObject *child){
 	//LM 071312 return if already has child
-  for (unsigned int i = 0; i < children.size(); i++) {
+    for (unsigned int i = 0; i < children.size(); i++) {
 		if (children[i] == child) {
 			return (1);
 		}
@@ -129,21 +123,19 @@ int ofxObject::addChild(ofxObject *child)
 	return (1);
 }
 
-void ofxObject::removeChildSafe(ofxObject *child)
-{
+void ofxObject::removeChildSafe(ofxObject *child){
   children_to_remove.push_back(child);
 }
 
-void ofxObject::removeChild(ofxObject *child)
-{
-  for (unsigned int i = 0; i < children.size(); i++) {
+void ofxObject::removeChild(ofxObject *child){
+    for (unsigned int i = 0; i < children.size(); i++) {
 		if (children[i] == child) {
 			children.erase(children.begin() + i);
 			break;
 		}
 	}
 	
-  for (unsigned int i = 0; i < child->parents.size(); i++) {
+    for (unsigned int i = 0; i < child->parents.size(); i++) {
 		if (child->parents[i] == this) {
 			child->parents.erase(child->parents.begin() + i);
 			break;
@@ -151,8 +143,7 @@ void ofxObject::removeChild(ofxObject *child)
 	}
 }
 
-void ofxObject::updateLocalMatrix()
-{
+void ofxObject::updateLocalMatrix(){
 	static float cX, sX, cY, sY, cZ, sZ;	//for xyz rotation
   
 	//calculate cos + sin for rotations ONCE
@@ -177,15 +168,10 @@ void ofxObject::updateLocalMatrix()
 	localMatrix[6] = scale.y * (cX*sY*sZ + sX*cZ);
 	localMatrix[10] = scale.z * (cX*cY);
 	
-  
 	localMatrixDirty = false;
 }
 
-
-
-
-void ofxObject::updateMatrices(float *iParentMatrix)
-{
+void ofxObject::updateMatrices(float *iParentMatrix){
 	static float *mat = NULL;
   
 	if (iParentMatrix != NULL) {
@@ -207,8 +193,7 @@ void ofxObject::updateMatrices(float *iParentMatrix)
 }
 
 
-float* ofxObject::updateMatrix(float *iParentMatrix)
-{
+float* ofxObject::updateMatrix(float *iParentMatrix){
 	// if the object has multiple parents, the hierarchy tree matrix needs to be set to dirty, using mMatrixDirty.
 	if (parents.size() > 1) matrixDirty = true;
   
@@ -248,19 +233,19 @@ float* ofxObject::updateMatrix(float *iParentMatrix)
 ofxObjectMaterial* ofxObject::updateMaterial(ofxObjectMaterial *iMat)
 {
 	//firebrand - added support for disabling alpha inheritance
-  float alpha = material->color.a;
-  float r = material->color.r;
-  float g = material->color.g;
-  float b = material->color.b;
+    float alpha = material->color.a;
+    float r = material->color.r;
+    float g = material->color.g;
+    float b = material->color.b;
   
 	if(material->inheritAlphaFlag) alpha *= (float)iMat->color.a / 255.0f;
-  if(inheritColor) {  // SK added color inheritence flag
-    r *= (float)iMat->color.r / 255.0f;
-    g *= (float)iMat->color.g / 255.0f;
-    b *= (float)iMat->color.b / 255.0f;
-  }
+    if(inheritColor) {  // SK added color inheritence flag
+        r *= (float)iMat->color.r / 255.0f;
+        g *= (float)iMat->color.g / 255.0f;
+        b *= (float)iMat->color.b / 255.0f;
+    }
   
-  drawMaterial->color.set(r,g,b,alpha);
+    drawMaterial->color.set(r,g,b,alpha);
 	
 	return drawMaterial;
 }
@@ -278,8 +263,8 @@ void ofxObject::idleBase(float iTime)
 	//timePrev = ofGetElapsedTimef();	//ofGetSystemTime()/1000.0f;
   
 	//timeElapsed = ofGetLastFrameTime();	//OF7
-  //Calculate this locally so it's always based on the idle call times    //eg
-  timeElapsed = iTime - timePrev;
+    //Calculate this locally so it's always based on the idle call times    //eg
+    timeElapsed = iTime - timePrev;
   
 	updateMessages();
 	//call virtual
@@ -289,13 +274,13 @@ void ofxObject::idleBase(float iTime)
 	for (unsigned int i = 0; i < children.size(); i++)
 		children[i]->idleBase(iTime);
   
-  // remove all marked children
-  for( ofxObject *child : children_to_remove ){
-    removeChild( child );
-  }
-  children_to_remove.clear();
-  
-  timePrev = iTime;   //eg
+    // remove all marked children
+    for( ofxObject *child : children_to_remove ){
+        removeChild( child );
+    }
+    children_to_remove.clear();
+
+    timePrev = iTime;   //eg
 }
 
 //----------------------------------------------------------
@@ -497,7 +482,7 @@ ofVec3f ofxObject::getWindowCoords()
 	for (int i=0; i < 16; i++) mM[i] = (double)curMat[i];
 	
 	gluProject(0, 0, 0, mM, pM, v, &wx, &wy, &wz);
-	
+
 	return ofVec3f(wx, wy, wz);
 }
 
@@ -526,7 +511,7 @@ void ofxObject::setColor(float r, float g, float b)
 }
 
 // set color with an HTML-style hex code string, keep original alpha
-void ofxObject::setColor(string iHex)
+void ofxObject::setColor(std::string iHex)
 {
   if(iHex[0] == '#'){
     iHex = iHex.substr(1,iHex.length());
@@ -760,7 +745,7 @@ void ofxObject::setShader(ofShader *iShader){
 }
 
 // Load shader from a file.  Assumes frag and vertex shaders have the same filename.
-void ofxObject::loadShader(string iShaderName){
+void ofxObject::loadShader(std::string iShaderName){
   
   if (shader == NULL){
     shader = new ofShader();
@@ -774,7 +759,7 @@ void ofxObject::loadShader(string iShaderName){
 
 // Loads shader from file.  You can individually specify
 // the name of frag, vert, and geo shader.
-void ofxObject::loadShader(string iFragName, string iVertName){
+void ofxObject::loadShader(std::string iFragName, std::string iVertName){
   
   if (shader == NULL){
     shader = new ofShader();
@@ -1368,7 +1353,7 @@ ofxMessage* ofxObject::doMessage4f(int iID, float iDelay, float iDuration, int i
 	return message;
 }
 
-ofxMessage* ofxObject::doMessageNf(int iID, float iDelay, float iDuration, int iInterp, int iPath, vector<ofVec4f> iPathPoints)
+ofxMessage* ofxObject::doMessageNf(int iID, float iDelay, float iDuration, int iInterp, int iPath, std::vector<ofVec4f> iPathPoints)
 {
 	ofxMessage *message = new ofxMessage(iID, iInterp, iPath, iPathPoints, iDuration, iDelay);
   message->setStartTime(curTime);
@@ -1418,7 +1403,7 @@ int ofxObject::isDescendant(ofxObject *iObject)
 
 // Convenience method for selection.
 // Checks if an object's id is among a vector of IDs.
-bool ofxObject::isObjectID(vector<GLuint> iIDs)
+bool ofxObject::isObjectID(std::vector<GLuint> iIDs)
 {
   for(int i=0; i < iIDs.size(); i++){
     if(iIDs[i] == id)
